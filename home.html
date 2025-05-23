@@ -1,68 +1,391 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donation pledge form</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<style>
-
-    .body{
-    background-color: #a7987d;
-      color: #000000;
-      display: flex;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Donation Home</title>
+  <style>
+    * {
+      box-sizing: border-box;
       margin: 0;
-    }
-     .sidebar {
-      background-color: #775d2d;
-      color: black;
-      width: 200px;
-      min-height: 100vh;
-      padding: 10px;
+      padding: 0;
+      font-family: Arial, sans-serif;
     }
 
-    .sidebar h5 {
-      background-color: #000000;
+    body {
+      background-color: #f0f2f5;
+    }
+
+    .navbar {
+      background-color: #333;
       color: white;
-      padding: 16px;
-      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    .navbar .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .nav-buttons button {
+      margin-left: 10px;
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .nav-buttons button:hover {
+      background-color: white;
+      color: #333;
+    }
+
+    .hero {
+      height: 90vh;
+      background-image: url('https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=1500&q=80');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
       text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    }
+
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 30px;
+      max-width: 600px;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    }
+
+    .hero button {
+      padding: 14px 28px;
+      font-size: 18px;
+      background-color: #282b29;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .hero button:hover {
+      background-color: #98a09b;
+      color: black;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: #777;
+      background-color: #fff;
+      border-top: 1px solid #ddd;
+    }
+    .footer1 {
+      text-align: center;
+      padding: 20px;
+      color: #ffffff;
+      background-color: #2d2d2d;
+      border-top: 2px solid #000000;
+      border-bottom: 2px solid #000000;
+    }
+     input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button[type="submit"], .modal-content button {
+      margin-top: 20px;
+      background: #28a745;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
       cursor: pointer;
     }
-
-    .sidebar a {
-      color: black;
-      text-decoration: none;
-      display: block;
-      padding: 15px;
-      font-size: 20px;
+     .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
     }
 
-    .sidebar a:hover {
-      background-color: #d3bc92;
-      padding-left: 15px;
-    } 
-</style>
+    .modal-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 10px;
+    }
+    .gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
 
+  .gallery img {
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .lightbox-active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+
+  .lightbox-active img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  }
+
+    
+  </style>
 </head>
 <body>
-     <div class="sidebar">
-    <h5><img src="image/balance-scale.png" alt="" style="width: 50px;">DONS</h5>
-    <hr>
-    <a href="home.html">Home</a>
-    <a href="">About us</a>
-    <div class="dropdown mt-3">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Settings</button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><a class="dropdown-item" href="login.html">Login/Register</a></li>
-      </ul>
-      
+
+  <!-- Navbar -->
+   <div class="navbar">
+   <div class="logo" onclick="location.href='home.html'" style="cursor: pointer;">DONS</div>
+
+    <div class="nav-buttons" id="authButtons">
+  <button onclick="openModal('signinModal')">Sign In</button>
+  <button onclick="openModal('signupModal')">Sign Up</button>
+</div>
+<div class="nav-user" id="userDisplay" style="display: none;"></div>
+
+
+
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Make a Difference Today</h1>
+    <p>Your pledge can help support vital causes around the world. Join thousands of others making an impact.</p>
+    <button onclick="handlePledge()" class="pledge-button">Make a Pledge</button>
+
+  </section>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>&copy; 2025 Donation Pledge. All rights reserved.</p>
+  </div>
+ <!-- Sign In Modal -->
+  <div id="signinModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('signinModal')">&times;</span>
+      <h3>Sign In</h3>
+      <input type="text" id="signinUsername" placeholder="Username" required>
+      <input type="password" id="signinPassword" placeholder="Password" required>
+      <button onclick="signIn()">Sign In</button>
     </div>
   </div>
-   
-    
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <!-- Sign Up Modal -->
+  <div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('signupModal')">&times;</span>
+      <h3>Sign Up</h3>
+      <input type="text" id="signupUsername" placeholder="Username" required>
+      <input type="password" id="signupPassword" placeholder="Password" required>
+      <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" required>
+
+      <button onclick="signUp()">Sign Up</button>
+    </div>
+  </div>
+  <span id="userGreeting"></span>
+<hr>
+<!-- Donation Photos Section -->
+<section style="padding: 40px; background-color: #f9f9f9;">
+  <h2 style="text-align: center; margin-bottom: 30px;">See the Impact</h2>
+  <div class="gallery">
+    <img src="pons.jpg.jpg" alt="Donation 1">
+    <img src="ponss.jpg.webp" alt="Donation 2">
+    <img src="pon.jpg" alt="Donation 3">
+    <img src="po.jpg" alt="Donation 4">
+  </div>
+</section>
+<div class="footer1">
+    <p> "You may never see my face, but every smile I share is part of the legacy your compassion left behind.".</p>
+  </div>
+   <script>
+  // Show username if logged in
+  function updateNavbar() {
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    const authButtons = document.getElementById("authButtons");
+    const userDisplay = document.getElementById("userDisplay");
+
+    if (loggedInUser) {
+      authButtons.style.display = "none";
+      userDisplay.style.display = "block";
+     userDisplay.innerHTML = `Welcome, ${loggedInUser} <button onclick="signOut()">Sign Out</button>`;
+
+    } else {
+      authButtons.style.display = "block";
+      userDisplay.style.display = "none";
+    }
+  }
+
+  // When someone signs in
+ function signIn() {
+  const username = document.getElementById("signinUsername").value;
+  const password = document.getElementById("signinPassword").value;
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  const found = users.find(user => user.username === username && user.password === password);
+  if (found) {
+    localStorage.setItem("loggedInUser", username);
+    alert("Sign In successful!");
+    closeModal("signinModal");
+    location.reload(); // Refresh to update UI
+  } else {
+    alert("Invalid username or password.");
+  }
+}
+
+
+  // When someone signs up
+ function signUp() {
+  const username = document.getElementById("signupUsername").value;
+  const password = document.getElementById("signupPassword").value;
+  const confirmPassword = document.getElementById("signupConfirmPassword").value;
+
+  if (!username || !password || !confirmPassword) {
+    alert("Please fill out all fields.");
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    alert("Passwords do not match.");
+    return;
+  }
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  // Check if username already exists
+  const exists = users.some(user => user.username === username);
+  if (exists) {
+    alert("Username already taken.");
+    return;
+  }
+
+  users.push({ username, password });
+  localStorage.setItem("users", JSON.stringify(users));
+
+  alert("Sign Up successful!");
+  closeModal("signupModal");
+}
+
+
+
+  // Modal helpers
+  function openModal(id) {
+    document.getElementById(id).style.display = "block";
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    const signin = document.getElementById("signinModal");
+    const signup = document.getElementById("signupModal");
+    if (event.target === signin) signin.style.display = "none";
+    if (event.target === signup) signup.style.display = "none";
+  };
+
+  // Run when page loads
+  document.addEventListener("DOMContentLoaded", updateNavbar);
+  function signOut() {
+  localStorage.removeItem("loggedInUser");
+  updateNavbar();
+}
+ function handlePledge() {
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
+    if (!loggedInUser) {
+      alert("Please sign in first.");
+    } else {
+      window.location.href = "dons.html"; // redirect to your donation form page
+    }
+  }
+ 
+
+function signOut() {
+  localStorage.removeItem("loggedInUser");
+  location.reload();
+}
+
+  const galleryImages = document.querySelectorAll('.gallery img');
+
+  galleryImages.forEach(img => {
+    img.addEventListener('click', () => {
+      const isLightbox = img.classList.contains('enlarged');
+
+      if (isLightbox) return; // Prevent duplicate clicks
+
+      // Enlarge
+      const wrapper = document.createElement('div');
+      wrapper.classList.add('lightbox-active');
+
+      const clone = img.cloneNode(true);
+      clone.classList.add('enlarged');
+      wrapper.appendChild(clone);
+      document.body.appendChild(wrapper);
+
+      // Close on any click (wrapper area)
+      wrapper.addEventListener('click', () => {
+        wrapper.remove();
+        img.classList.remove('enlarged');
+      });
+
+      img.classList.add('enlarged');
+    });
+  });
+
+
+</script>
+
 </body>
 </html>

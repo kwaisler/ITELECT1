@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Donation Pledge Form</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      
+      font-family: Arial, sans-serif;
+      background-image: url('https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=1500&q=80');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #333;
+      color: white;
+    }
+
+    .navbar .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .navbar .nav-buttons button {
+      margin-left: 10px;
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .navbar .nav-buttons button:hover {
+      background-color: white;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button[type="submit"], .modal-content button {
+      margin-top: 20px;
+      background: #28a745;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background: #218838;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #777;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 10px;
+    }
+
+    .modal-content h3 {
+      margin-top: 0;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: black;
+    }
+
+    .modal input {
+      margin-bottom: 10px;
+    }
+
+    .success-message {
+      background: #d4edda;
+      color: #155724;
+      padding: 15px;
+      border-radius: 6px;
+      margin-top: 20px;
+      display: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+   <div class="logo" onclick="location.href='home.html'" style="cursor: pointer;">DONS</div>
+
+    
+  </div>
+
+  <!-- Donation Form -->
+  <div class="container">
+    <h2>Donation Pledge Form</h2>
+    <form id="donationForm">
+      <label for="fullname">Full Name:</label>
+      <input type="text" id="fullname" name="fullname" required>
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="amount">Pledge Amount ($):</label>
+      <input type="number" id="amount" name="amount" min="1" required>
+
+      <label for="frequency">Donation Frequency:</label>
+      <select id="frequency" name="frequency" required>
+        <option value="">--Select--</option>
+        <option value="One-time">One-time</option>
+        <option value="Monthly">Monthly</option>
+        <option value="Yearly">Yearly</option>
+      </select>
+
+      <label for="message">Message (Optional):</label>
+      <textarea id="message" name="message" rows="4"></textarea>
+
+      <button type="submit">Submit Pledge</button>
+      <button type="button" onclick="cancelPledge()" style="background-color: #ffffff;">Cancel</button>
+
+    </form>
+
+    <div class="success-message" id="successMessage">
+      🎉 Donation submitted successfully! Returning to home...
+    </div>
+
+    <div class="footer">
+      <p>Thank you for your generosity!</p>
+    </div>
+  </div>
+
+ 
+
+  <!-- JavaScript -->
+  <script>
+    function openModal(id) {
+      document.getElementById(id).style.display = "block";
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      const signin = document.getElementById("signinModal");
+      const signup = document.getElementById("signupModal");
+      if (event.target === signin) signin.style.display = "none";
+      if (event.target === signup) signup.style.display = "none";
+    };
+
+    // Handle donation form
+    document.getElementById("donationForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      document.getElementById("successMessage").style.display = "block";
+
+     setTimeout(() => {
+  window.location.href = "home.html";
+}, 3000);
+    });
+
+   
+    function cancelPledge() {
+  window.location.href = "home.html";
+}
+  </script>
+</body>
+</html>
